@@ -31,7 +31,7 @@ pip (Python package installer)
 A Bria AI API Key (You can obtain one from Bria AI)
 
 1. Clone the Repository
-git clone https://github.com/your-username/artpop.git
+git clone" https://github.com/your-username/artpop.git](https://github.com/SeiaShibu/ART-POP-AI-IMAGE-GENERATOR.git"
 cd artpop
 
 2. Install Dependencies
