@@ -1,0 +1,487 @@
+/* Color Palette:
+   Blush Pink: #F8E7EB (Very Light), #E0B0B0 (Medium), #D4A0A0 (Darker)
+   Sage Green: #E6F0E6 (Very Light), #A8D4A8 (Medium), #81C784 (Darker)
+   Neutral: #FFFFFF (White), #333 (Dark Grey for text), #555 (Medium Grey for labels), #D3D3D3 (Light Grey for borders), #F0F5F0 (Light Sage variant)
+*/
+
+body {
+    font-family: 'Inter', sans-serif; /* Using Inter font as per instructions */
+    margin: 0;
+    padding: 20px;
+    background-color: #E6F0E6; /* Very Light Sage Green */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top */
+    min-height: 100vh; /* Ensure it takes full viewport height */
+}
+.artpop-studio {
+  font-family: 'Montserrat', sans-serif; /* A modern, bold font */
+  font-size: 60px;
+  color: #FFC0CB; /* Main Text Color: Blush Pink */
+  text-shadow:
+    2px 2px 0 #8A9A5B, /* First Shadow: A darker Sage Green */
+    4px 4px 0 #9DB070, /* Second Shadow: A mid Sage Green */
+    6px 6px 0 #AFBF87; /* Deepest Shadow: A lighter Sage Green */
+  letter-spacing: 1px;
+  /* Optional: Add a subtle animation */
+  transition: transform 0.3s ease-in-out;
+}
+
+.artpop-studio:hover {
+  transform: translateY(-3px); /* Slightly lift on hover */
+}
+
+.artpop-studio:hover {
+  transform: translateY(-3px); /* Slightly lift on hover */
+}
+.container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    background-color: #FFFFFF; /* White */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* More pronounced, softer shadow */
+    border-radius: 16px; /* Even more rounded corners */
+    overflow: hidden;
+    margin-top: 20px; /* Add some margin from the top */
+    margin-bottom: 20px;
+}
+
+.sidebar {
+    width: 280px; /* Slightly wider sidebar */
+    padding: 25px; /* More padding */
+    background-color: #F8E7EB; /* Very Light Blush Pink */
+    border-right: 1px solid #D3D3D3; /* Light Grey Border */
+    border-top-left-radius: 16px; /* Match container radius */
+    border-bottom-left-radius: 16px; /* Match container radius */
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 25px; /* More padding */
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #D3D3D3; /* Light Grey Border */
+}
+
+.tab-button {
+    padding: 12px 20px; /* Larger buttons */
+    border: none;
+    background-color: #F0F5F0; /* Slightly darker light sage */
+    color: #333;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px 8px 0 0; /* Rounded top corners */
+    margin-right: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tab-button:hover {
+    background-color: #E0E5E0; /* Darker hover for inactive tabs */
+    color: #555;
+}
+
+.tab-button.active {
+    background-color: #FFFFFF; /* White for active tab */
+    border: 1px solid #D3D3D3;
+    border-bottom: none;
+    color: #A8D4A8; /* Sage Green for active tab text */
+    font-weight: 600;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.05); /* Subtle shadow on active tab top */
+}
+
+.tab-content {
+    display: none;
+    padding-top: 15px; /* Space below tabs */
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* New UI Structure Classes */
+.section-container {
+    display: flex;
+    gap: 30px; /* Space between columns */
+    margin-bottom: 25px;
+    flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+    padding: 15px; /* Padding inside the section container */
+    border: 1px solid #E0E0E0; /* Light border for visual grouping */
+    border-radius: 10px; /* Rounded corners */
+    background-color: #FDFDFD; /* Slightly off-white for sections */
+    box-shadow: inset 0 1px 5px rgba(0,0,0,0.03); /* Very subtle inner shadow */
+}
+
+.section-column {
+    flex: 1;
+    min-width: 300px; /* Ensure columns don't get too narrow */
+    padding: 10px; /* Internal padding for columns */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Consistent spacing between form elements */
+}
+
+.form-group:last-child {
+    margin-bottom: 0; /* No margin after the last element in a group */
+}
+
+.checkbox-group,
+.radio-group {
+    display: flex;
+    align-items: center; /* Align checkbox/radio with label */
+    margin-bottom: 15px;
+}
+
+.checkbox-group input[type="checkbox"],
+.radio-group input[type="radio"] {
+    margin-right: 8px; /* Space between checkbox/radio and label */
+    width: auto; /* Prevent full width */
+    box-shadow: none; /* Remove inset shadow for checkboxes/radios */
+}
+
+.checkbox-group label,
+.radio-group label {
+    margin-bottom: 0; /* Adjust label margin for alignment */
+    font-weight: normal; /* Less bold for checkboxes/radios */
+}
+
+
+h1, h2, h3, h4 {
+    color: #333;
+    margin-bottom: 15px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Subtle text shadow for headings */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px; /* More space below labels */
+    font-weight: 600; /* Bolder labels */
+    color: #555; /* Medium grey for labels */
+    text-shadow: 0 0.5px 1px rgba(0,0,0,0.03); /* Very subtle text shadow for labels */
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+textarea,
+select {
+    width: calc(100% - 20px); /* Adjust width for padding */
+    padding: 10px;
+    margin-bottom: 0; /* Handled by form-group */
+    border: 1px solid #D3D3D3; /* Light grey border */
+    border-radius: 8px; /* More rounded corners */
+    font-size: 14px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.08); /* Inset shadow for depth */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #A8D4A8; /* Sage Green border on focus */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1), 0 0 0 3px rgba(168, 212, 168, 0.3); /* Focus ring */
+    outline: none;
+}
+
+input[type="range"] {
+    width: calc(100% - 10px);
+    margin-bottom: 0; /* Handled by form-group */
+    /* Customizing range input for better aesthetics */
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    background: #D3D3D3;
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #A8D4A8; /* Sage Green thumb */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #A8D4A8; /* Sage Green thumb */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+
+button {
+    /* Base Button Styles */
+    background: linear-gradient(145deg, #A8D4A8, #81C784); /* Subtle gradient for 3D effect */
+    color: white;
+    padding: 14px 30px; /* Larger padding */
+    border: none;
+    border-radius: 10px; /* More rounded corners */
+    cursor: pointer;
+    font-size: 17px; /* Slightly larger font */
+    font-weight: 700; /* Bolder text */
+    margin-top: 20px; /* More margin from above elements */
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2); /* Deeper shadow for lift */
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2); /* Text shadow for embossed effect */
+    letter-spacing: 0.5px; /* Slightly more spaced letters */
+    position: relative; /* For active state pseudo-element */
+    overflow: hidden; /* For ripple effect if added later */
+}
+
+button:hover {
+    background: linear-gradient(145deg, #81C784, #A8D4A8); /* Invert gradient on hover */
+    transform: translateY(-3px); /* More pronounced lift effect */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25); /* Deeper shadow on hover */
+}
+
+button:active {
+    transform: translateY(0); /* Press down effect */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15); /* Smaller shadow when pressed */
+    background: linear-gradient(145deg, #70B073, #90D090); /* Darker gradient when pressed */
+}
+
+
+input[type="file"] {
+    margin-bottom: 15px;
+    padding: 8px;
+    border: 1px solid #D3D3D3;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 15px;
+    border: 1px solid #E0E0E0; /* Lighter border for images */
+    border-radius: 10px; /* Rounded corners for images */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Soft shadow for images */
+}
+
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* More space between images */
+    justify-content: center; /* Center images in gallery */
+    padding: 10px; /* Add some padding around the gallery */
+}
+
+.image-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #D3D3D3; /* Light grey border */
+    padding: 20px; /* More padding */
+    border-radius: 12px; /* More rounded corners */
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Softer shadow */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.image-item:hover {
+    transform: translateY(-5px); /* More pronounced lift effect on hover */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.download-button {
+    /* Base Download Button Styles */
+    background: linear-gradient(145deg, #E0B0B0, #D4A0A0); /* Subtle gradient for 3D effect */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Deeper shadow */
+    text-shadow: 0 1px 1px rgba(0,0,0,0.15); /* Text shadow */
+}
+
+.download-button:hover {
+    background: linear-gradient(145deg, #D4A0A0, #E0B0B0); /* Invert gradient on hover */
+    transform: translateY(-2px); /* Slight lift */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.download-button:active {
+    transform: translateY(0); /* Press down */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: linear-gradient(145deg, #C08080, #D0A0A0); /* Darker gradient when pressed */
+}
+
+
+.edit-options {
+    border: 1px solid #D3D3D3;
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 12px; /* More rounded */
+    background-color: #fcfcfc; /* Slightly off-white for sections */
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08); /* Softer shadow */
+}
+
+/* Status messages */
+#status_message p {
+    padding: 12px 18px; /* Larger padding */
+    border-radius: 8px; /* More rounded */
+    margin-bottom: 20px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08); /* Subtle shadow */
+}
+
+#status_message p.info {
+    background-color: #E0F2F7; /* Light Blue */
+    color: #2196F3;
+    border: 1px solid #90CAF9;
+}
+
+#status_message p.success {
+    background-color: #E8F5E9; /* Light Green */
+    color: #4CAF50;
+    border: 1px solid #A5D6A7;
+}
+
+#status_message p.warning {
+    background-color: #FFFDE7; /* Light Yellow */
+    color: #FFC107;
+    border: 1px solid #FFEB3B;
+}
+
+#status_message p.error {
+    background-color: #FFEBEE; /* Light Red */
+    color: #F44336;
+    border: 1px solid #EF9A9A;
+}
+
+/* Canvas specific styles */
+.canvas-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas {
+    border: 1px solid #D3D3D3;
+    border-radius: 8px;
+    background-color: #f8f8f8; /* Light background for drawing area */
+    box-shadow: inset 0 1px 5px rgba(0,0,0,0.05);
+    width: 100%; /* Make canvas responsive within its column */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 600px; /* Max width for larger screens */
+    margin-bottom: 15px;
+}
+
+.drawing-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #fdfdfd;
+}
+
+.drawing-controls label {
+    margin-bottom: 0;
+    font-weight: 500;
+    color: #666;
+}
+
+.drawing-controls input[type="color"] {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.drawing-controls input[type="range"] {
+    width: 100px;
+    margin-right: 10px;
+}
+
+.drawing-controls button {
+    margin-top: 0; /* Override default button margin */
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.note {
+    font-size: 0.9em;
+    color: #777;
+    text-align: center;
+    margin-top: 5px;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #D3D3D3;
+        border-radius: 0;
+    }
+
+    .section-container {
+        flex-direction: column;
+        gap: 0;
+        padding: 10px; /* Adjust padding for small screens */
+    }
+
+    .section-column {
+        min-width: unset;
+        width: 100%;
+        padding: 5px; /* Adjust padding for small screens */
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="password"],
+    textarea,
+    select,
+    input[type="range"] {
+        width: calc(100% - 10px); /* Adjust for smaller screens */
+    }
+    
+    .drawing-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .drawing-controls input[type="range"] {
+        width: calc(100% - 20px);
+    }
+}

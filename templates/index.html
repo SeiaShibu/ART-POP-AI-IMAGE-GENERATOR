@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTPop 🎨 | AI Image Studio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2></h2>
+            <div class="form-group">
+                <!--label for="api_key_input">Bria AI API Key:</label>
+                <input type="password" id="api_key_input" placeholder="Enter your API key" value="{{ session['api_key'] or '' }}">
+                <button onclick="setApiKey()">Save API Key</button-->
+            </div>
+            <div id="status_message">
+                <!-- Status messages will appear here -->
+            </div>
+        </aside>
+
+        <main class="main-content">
+<h1 class="artpop-studio">
+  ARTpop 🎨 | AI Image Studio
+</h1>
+            <div class="tabs">
+                <button class="tab-button active" onclick="openTab(event, 'generateImage')">🎨 Generate Image</button>
+                <button class="tab-button" onclick="openTab(event, 'productPhotography')">🖼️ Product Photography</button>
+                <button class="tab-button" onclick="openTab(event, 'generativeFill')">🎨 Generative Fill</button>
+                <button class="tab-button" onclick="openTab(event, 'eraseElements')">✂️ Erase Elements</button>
+            </div>
+
+            <div id="generateImage" class="tab-content active">
+                <h2>Generate Images</h2>
+                <div class="section-container">
+                    <div class="section-column">
+                        <div class="form-group">
+                            <label for="prompt_input">Enter your prompt</label>
+                            <textarea id="prompt_input" rows="4">{{ original_prompt }}</textarea>
+                            <button onclick="enhancePrompt()">✨ Enhance Prompt</button>
+                            {% if enhanced_prompt %}
+                            <p class="enhanced-prompt-display"><strong>Enhanced Prompt:</strong> <em>{{ enhanced_prompt }}</em></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="section-column">
+                        <div class="form-group">
+                            <label for="num_images">Number of images: <span id="num_images_value">1</span></label>
+                            <input type="range" id="num_images" min="1" max="4" value="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="aspect_ratio">Aspect ratio:</label>
+                            <select id="aspect_ratio">
+                                <option value="1:1">1:1 (Square)</option>
+                                <option value="16:9">16:9 (Landscape)</option>
+                                <option value="9:16">9:16 (Portrait)</option>
+                                <option value="4:3">4:3</option>
+                                <option value="3:4">3:4</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="enhance_img" checked>
+                            <label for="enhance_img">Enhance image quality</label>
+                        </div>
+
+                        <h3>Style Options</h3>
+                        <div class="form-group">
+                            <label for="image_style">Image Style:</label>
+                            <select id="image_style">
+                                <option value="Realistic">Realistic</option>
+                                <option value="Artistic">Artistic</option>
+                                <option value="Cartoon">Cartoon</option>
+                                <option value="Sketch">Sketch</option>
+                                <option value="Watercolor">Watercolor</option>
+                                <option value="Oil Painting">Oil Painting</option>
+                                <option value="Digital Art">Digital Art</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="generateImage()">🎨 Generate Images</button>
+            </div>
+
+            <div id="productPhotography" class="tab-content">
+                <h2>Product Photography</h2>
+                <div class="form-group">
+                    <label for="product_upload">Upload Product Image:</label>
+                    <input type="file" id="product_upload" accept="image/*">
+                    <img id="original_product_image" style="max-width: 300px; display: none;">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit_option">Select Edit Option:</label>
+                    <select id="edit_option" onchange="toggleProductOptions()">
+                        <option value="Create Packshot">Create Packshot</option>
+                        <option value="Add Shadow">Add Shadow</option>
+                        <option value="Lifestyle Shot">Lifestyle Shot</option>
+                    </select>
+                </div>
+
+                <div id="packshot_options" class="edit-options">
+                    <h3>Create Packshot</h3>
+                    <div class="section-container">
+                        <div class="section-column">
+                            <div class="form-group">
+                                <label for="packshot_bg_color">Background Color:</label>
+                                <input type="color" id="packshot_bg_color" value="#FFFFFF">
+                            </div>
+                            <div class="form-group">
+                                <label for="packshot_sku">SKU (optional):</label>
+                                <input type="text" id="packshot_sku">
+                            </div>
+                        </div>
+                        <div class="section-column">
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="packshot_force_rmbg">
+                                <label for="packshot_force_rmbg">Force Background Removal</label>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="packshot_content_moderation">
+                                <label for="packshot_content_moderation">Enable Content Moderation</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="createPackshot()">Create Packshot</button>
+                </div>
+
+                <div id="shadow_options" class="edit-options" style="display:none;">
+                    <h3>Add Shadow</h3>
+                    <div class="section-container">
+                        <div class="section-column">
+                            <div class="form-group">
+                                <label for="shadow_type">Shadow Type:</label>
+                                <select id="shadow_type" onchange="toggleShadowTypeOptions()">
+                                    <option value="Natural">Natural</option>
+                                    <option value="Drop">Drop</option>
+                                    <option value="Float">Float</option> 
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="shadow_bg_color">Background Color (optional):</label>
+                                <input type="color" id="shadow_bg_color" value="#FFFFFF">
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="use_transparent_bg" checked>
+                                <label for="use_transparent_bg">Use Transparent Background</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="shadow_color">Shadow Color:</label>
+                                <input type="color" id="shadow_color" value="#000000">
+                            </div>
+                            <div class="form-group">
+                                <label for="shadow_sku">SKU (optional):</label>
+                                <input type="text" id="shadow_sku">
+                            </div>
+                        </div>
+                        <div class="section-column">
+                            <h4>Shadow Offset</h4>
+                            <div class="form-group">
+                                <label for="offset_x">X Offset: <span id="offset_x_value">0</span></label>
+                                <input type="range" id="offset_x" min="-50" max="50" value="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="offset_y">Y Offset: <span id="offset_y_value">15</span></label>
+                                <input type="range" id="offset_y" min="-50" max="50" value="15">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="shadow_intensity">Shadow Intensity: <span id="shadow_intensity_value">60</span></label>
+                                <input type="range" id="shadow_intensity" min="0" max="100" value="60">
+                            </div>
+                            <div class="form-group">
+                                <label for="shadow_blur">Shadow Blur: <span id="shadow_blur_value">20</span></label>
+                                <input type="range" id="shadow_blur" min="0" max="50" value="20">
+                            </div>
+
+                            <div id="float_shadow_settings" style="display:none;">
+                                <h4>Float Shadow Settings</h4>
+                                <div class="form-group">
+                                    <label for="shadow_width">Shadow Width: <span id="shadow_width_value">0</span></label>
+                                    <input type="range" id="shadow_width" min="-100" max="100" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="shadow_height">Shadow Height: <span id="shadow_height_value">70</span></label>
+                                    <input type="range" id="shadow_height" min="-100" max="100" value="70">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="shadow_force_rmbg">
+                                <label for="shadow_force_rmbg">Force Background Removal</label>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="shadow_content_moderation">
+                                <label for="shadow_content_moderation">Enable Content Moderation</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="addShadow()">Add Shadow</button>
+                </div>
+
+                <div id="lifestyle_options" class="edit-options" style="display:none;">
+                    <h3>Lifestyle Shot</h3>
+                    <div class="form-group radio-group">
+                        <input type="radio" id="shot_type_text" name="shot_type" value="Text Prompt" checked onchange="toggleLifestyleShotType()">
+                        <label for="shot_type_text">Text Prompt</label>
+                        <input type="radio" id="shot_type_image" name="shot_type" value="Reference Image" onchange="toggleLifestyleShotType()">
+                        <label for="shot_type_image">Reference Image</label>
+                    </div>
+                    
+                    <div class="section-container">
+                        <div class="section-column">
+                            <div class="form-group">
+                                <label for="placement_type">Placement Type:</label>
+                                <select id="placement_type" onchange="togglePlacementOptions()">
+                                    <option value="Original">Original</option>
+                                    <option value="Automatic">Automatic</option>
+                                    <option value="Manual Placement">Manual Placement</option>
+                                    <option value="Manual Padding">Manual Padding</option>
+                                    <option value="Custom Coordinates">Custom Coordinates</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="ls_num_results">Number of Results: <span id="ls_num_results_value">4</span></label>
+                                <input type="range" id="ls_num_results" min="1" max="8" value="4">
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="ls_sync_mode">
+                                <label for="ls_sync_mode">Synchronous Mode</label>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="ls_original_quality">
+                                <label for="ls_original_quality">Original Quality</label>
+                            </div>
+
+                            <div id="manual_placement_select" class="form-group" style="display:none;">
+                                <label for="manual_placements">Select Positions:</label>
+                                <select id="manual_placements" multiple size="5">
+                                    <option value="Upper Left" selected>Upper Left</option>
+                                    <option value="Upper Right">Upper Right</option>
+                                    <option value="Bottom Left">Bottom Left</option>
+                                    <option value="Bottom Right">Bottom Right</option>
+                                    <option value="Right Center">Right Center</option>
+                                    <option value="Left Center">Left Center</option>
+                                    <option value="Upper Center">Upper Center</option>
+                                    <option value="Bottom Center">Bottom Center</option>
+                                    <option value="Center Vertical">Center Vertical</option>
+                                    <option value="Center Horizontal">Center Horizontal</option>
+                                </select>
+                            </div>
+                            <div id="manual_padding_inputs" style="display:none;">
+                                <h4>Padding Values (pixels)</h4>
+                                <div class="form-group">
+                                    <label for="pad_left">Left Padding: <span id="pad_left_value">0</span></label>
+                                    <input type="range" id="pad_left" min="0" max="1000" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pad_right">Right Padding: <span id="pad_right_value">0</span></label>
+                                    <input type="range" id="pad_right" min="0" max="1000" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pad_top">Top Padding: <span id="pad_top_value">0</span></label>
+                                    <input type="range" id="pad_top" min="0" max="1000" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pad_bottom">Bottom Padding: <span id="pad_bottom_value">0</span></label>
+                                    <input type="range" id="pad_bottom" min="0" max="1000" value="0">
+                                </div>
+                            </div>
+                            <div id="shot_size_inputs" class="form-group">
+                                <h4>Shot Size</h4>
+                                <div class="form-group">
+                                    <label for="shot_width">Width: <span id="shot_width_value">1000</span></label>
+                                    <input type="range" id="shot_width" min="100" max="2000" value="1000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="shot_height">Height: <span id="shot_height_value">1000</span></label>
+                                    <input type="range" id="shot_height" min="100" max="2000" value="1000">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-column">
+                            <div id="custom_coordinates_inputs" style="display:none;">
+                                <h4>Product Position</h4>
+                                <div class="form-group">
+                                    <label for="fg_width">Product Width: <span id="fg_width_value">500</span></label>
+                                    <input type="range" id="fg_width" min="50" max="1000" value="500">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fg_height">Product Height: <span id="fg_height_value">500</span></label>
+                                    <input type="range" id="fg_height" min="50" max="1000" value="500">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fg_x">X Position: <span id="fg_x_value">0</span></label>
+                                    <input type="range" id="fg_x" min="-500" max="1500" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fg_y">Y Position: <span id="fg_y_value">0</span></label>
+                                    <input type="range" id="fg_y" min="-500" max="1500" value="0">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ls_sku">SKU (optional):</label>
+                                <input type="text" id="ls_sku">
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="ls_force_rmbg">
+                                <label for="ls_force_rmbg">Force Background Removal</label>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="ls_content_moderation">
+                                <label for="ls_content_moderation">Enable Content Moderation</label>
+                            </div>
+
+                            <div id="text_prompt_options">
+                                <div class="form-group checkbox-group">
+                                    <input type="checkbox" id="ls_fast_mode" checked>
+                                    <label for="ls_fast_mode">Fast Mode</label>
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <input type="checkbox" id="ls_optimize_desc" checked>
+                                    <label for="ls_optimize_desc">Optimize Description</label>
+                                </div>
+                                <div id="exclude_elements_div" class="form-group" style="display:none;">
+                                    <label for="exclude_elements">Exclude Elements (optional):</label>
+                                    <textarea id="exclude_elements" rows="2"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="scene_description">Describe the environment:</label>
+                                    <textarea id="scene_description" rows="4"></textarea>
+                                </div>
+                            </div>
+                            <div id="reference_image_options" style="display:none;">
+                                <div class="form-group">
+                                    <label for="reference_image_upload">Upload Reference Image:</label>
+                                    <input type="file" id="reference_image_upload" accept="image/*">
+                                </div>
+                                <div class="form-group checkbox-group">
+                                    <input type="checkbox" id="enhance_ref" checked>
+                                    <label for="enhance_ref">Enhance Reference Image</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ref_influence">Reference Influence: <span id="ref_influence_value">1.0</span></label>
+                                    <input type="range" id="ref_influence" min="0.0" max="1.0" step="0.1" value="1.0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="generateLifestyleShot()">Generate Lifestyle Shot</button>
+                </div>
+            </div>
+
+            <div id="generativeFill" class="tab-content">
+                <h2>Generative Fill</h2>
+                <div class="section-container">
+                    <div class="section-column">
+                        <div class="form-group">
+                            <label for="gf_original_image_upload">Upload Original Image:</label>
+                            <input type="file" id="gf_original_image_upload" accept="image/*" onchange="loadGFImageToCanvas(event)">
+                        </div>
+                        <div class="drawing-controls">
+                            <label for="gf_brush_color">Brush Color:</label>
+                            <input type="color" id="gf_brush_color" value="#000000">
+                            <label for="gf_brush_size">Brush Size: <span id="gf_brush_size_value">10</span></label>
+                            <input type="range" id="gf_brush_size" min="1" max="50" value="10">
+                            <button onclick="clearGFCanvas()">Clear Mask</button>
+                        </div>
+                        <div class="form-group">
+                            <label for="gf_prompt">Describe what to generate in the masked area:</label>
+                            <textarea id="gf_prompt" rows="4" placeholder="e.g., a lush green forest"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="gf_negative_prompt">Describe what to avoid (optional):</label>
+                            <textarea id="gf_negative_prompt" rows="2" placeholder="e.g., blurry, distorted"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="gf_num_results">Number of variations: <span id="gf_num_results_value">1</span></label>
+                            <input type="range" id="gf_num_results" min="1" max="4" value="1">
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="gf_sync_mode">
+                            <label for="gf_sync_mode">Synchronous Mode (Wait for results)</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="gf_seed">Seed (optional): <span id="gf_seed_value">0</span></label>
+                            <input type="number" id="gf_seed" min="0" value="0">
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="gf_content_moderation" checked>
+                            <label for="gf_content_moderation">Enable Content Moderation</label>
+                        </div>
+                    </div>
+                    <div class="section-column canvas-column">
+                        <canvas id="gf_canvas"></canvas>
+                        <p class="note">Draw on the image above to create your mask. Black areas will be filled.</p>
+                        <div id="gf_status_container"></div>
+                        <div id="gf_refresh_container"></div>
+                    </div>
+                </div>
+                <button onclick="handleGenerativeFill()">🎨 Apply Generative Fill</button>
+            </div>
+
+            <div id="eraseElements" class="tab-content">
+                <h2>Erase Elements</h2>
+                <div class="section-container">
+                    <div class="section-column">
+                        <div class="form-group">
+                            <label for="ee_original_image_upload">Upload Original Image:</label>
+                            <input type="file" id="ee_original_image_upload" accept="image/*" onchange="loadEEImageToCanvas(event)">
+                        </div>
+                        <div class="drawing-controls">
+                            <label for="ee_brush_color">Brush Color:</label>
+                            <input type="color" id="ee_brush_color" value="#FFFFFF">
+                            <label for="ee_brush_size">Brush Size: <span id="ee_brush_size_value">10</span></label>
+                            <input type="range" id="ee_brush_size" min="1" max="50" value="10">
+                            <button onclick="clearEECanvas()">Clear Mask</button>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="ee_content_moderation" checked>
+                            <label for="ee_content_moderation">Enable Content Moderation</label>
+                        </div>
+                    </div>
+                    <div class="section-column canvas-column">
+                        <canvas id="ee_canvas"></canvas>
+                        <p class="note">Draw on the image above to mark areas to erase. White areas will be erased.</p>
+                        <div id="ee_status_container"></div>
+                        <div id="ee_refresh_container"></div>
+                    </div>
+                </div>
+                <button onclick="handleEraseElements()">🗑️ Erase Elements</button>
+            </div>
+            
+            <div id="generated_results" style="margin-top: 20px;">
+                <!-- The JavaScript will dynamically add images and download buttons here -->
+                {% if current_image_url %}
+                    <h3>Current Image:</h3>
+                    <div class="image-item">
+                        <img src="{{ current_image_url }}" alt="Edited Image" style="max-width: 500px;">
+                        <a href="{{ current_image_url }}" download="edited_image.png" class="download-button">Download Current Image</a>
+                    </div>
+                {% endif %}
+                {% if generated_images %}
+                    <h3>All Generated Images:</h3>
+                    <div class="image-gallery">
+                        {% for img_url in generated_images %}
+                            <div class="image-item">
+                                <img src="{{ img_url }}" alt="Generated Image" style="max-width: 200px; margin: 5px;">
+                                <a href="{{ img_url }}" download="generated_image_{{ loop.index }}.png" class="download-button">Download</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
