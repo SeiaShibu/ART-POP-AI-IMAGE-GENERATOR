@@ -124,20 +124,3 @@ Experience ARTPop live here:
 
 YOUR_LIVE_DEMO_URL_HERE
 
-(Replace YOUR_LIVE_DEMO_URL_HERE with the actual URL once you deploy your application.)
-
-🤝 Contributing
-Contributions are welcome! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
-
-Fork the repository
-
-Create your feature branch (git checkout -b feature/amazing-feature)
-
-Commit your changes (git commit -m 'Add amazing feature')
-
-Push to the branch (git push origin feature/amazing-feature)
-
-Open a Pull Request
-
-📝 License
-This project is licensed under the MIT License - see the LICENSE file for details.
