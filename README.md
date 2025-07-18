@@ -122,5 +122,5 @@ Click "🗑️ Erase Elements".
 🌐 Live Demo
 Experience ARTPop live here:
 
-YOUR_LIVE_DEMO_URL_HERE
 
+"https://art-pop-ai-image-generator.onrender.com"
