@@ -1,5 +1,5 @@
-🎨 ARTPop
-ARTPop is a powerful web application built with Flask that leverages the Bria AI API to offer a suite of advanced image generation and manipulation tools. From creating stunning lifestyle shots for products to generating high-definition images from text prompts and performing advanced generative fill and erase operations, ARTPop empowers users to create compelling visual content with ease.
+🎨 IMGpop
+IMGpop is a powerful web application built with Flask that leverages the Bria AI API to offer a suite of advanced image generation and manipulation tools. From creating stunning lifestyle shots for products to generating high-definition images from text prompts and performing advanced generative fill and erase operations, IMGpop empowers users to create compelling visual content with ease.
 
 ✨ Features
 🖼️ Generate Image: Create high-definition images from text prompts with various styles (Realistic, Artistic, Cartoon, etc.) and aspect ratios. Includes an AI-powered prompt enhancement feature to refine your descriptions.
@@ -21,7 +21,7 @@ Create Lifestyle Shot: Integrate your product into diverse scenes using either a
 💾 Easy Image Download: Download your generated and edited images with a single click.
 
 🚀 Quick Start
-Follow these steps to get ARTPop up and running on your local machine.
+Follow these steps to get IMGpop up and running on your local machine.
 
 Prerequisites
 Python 3.8+
@@ -31,8 +31,8 @@ pip (Python package installer)
 A Bria AI API Key (You can obtain one from Bria AI)
 
 1. Clone the Repository
-git clone" https://github.com/your-username/artpop.git](https://github.com/SeiaShibu/ART-POP-AI-IMAGE-GENERATOR.git"
-cd artpop
+git clone" https://github.com/your-username/IMGpop.git](https://github.com/SeiaShibu/ART-POP-AI-IMAGE-GENERATOR.git"
+cd IMGpop
 
 2. Install Dependencies
 Install the required Python packages:
@@ -66,10 +66,10 @@ WARNING: This is a development server. Do not use it in a production deployment.
  * Running on http://127.0.0.1:5000
 Press CTRL+C to quit
 
-Open your web browser and navigate to http://127.0.0.1:5000 to access ARTPop.
+Open your web browser and navigate to http://127.0.0.1:5000 to access IMGpop.
 
 💡 Usage
-ARTPop features a tab-based interface for easy navigation between its powerful tools.
+IMGpop features a tab-based interface for easy navigation between its powerful tools.
 
 Setting Your API Key
 Upon first launching the application, or if your API key is not set, you can enter it in the Settings section in the left sidebar. This key will be stored in your session for the duration of your visit.
@@ -120,7 +120,7 @@ Use the brush tool to draw a white mask over the objects you wish to remove.
 Click "🗑️ Erase Elements".
 
 🌐 Live Demo
-Experience ARTPop live here:
+Experience IMGpop live here:
 
 
 "https://art-pop-ai-image-generator.onrender.com"
